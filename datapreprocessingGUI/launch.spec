@@ -1,11 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
-import GUIFramework
+import datapreprocessingGUI.GUIFramework
 
 block_cipher = None
 
 
 a = Analysis(['launch.py'],
-             pathex=['/home/zz/git/ZaoTX/DatapreprocessingGUI/datapreprocessingGUI'],
+             pathex=['/datapreprocessingGUI'],
              binaries=[],
              datas=[],
              hiddenimports=[],
