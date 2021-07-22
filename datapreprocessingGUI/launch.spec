@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-import datapreprocessingGUI.GUIFramework
+import GUIFramework
 
 block_cipher = None
 
