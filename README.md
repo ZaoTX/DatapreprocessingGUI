@@ -1,2 +1,2 @@
-# BirdImmersive
-bachelor project
+# DataPreprocessingGUI
+bachelor arbeit
