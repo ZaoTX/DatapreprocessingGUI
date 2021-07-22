@@ -30,5 +30,4 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-               upx_exclude=[],
-               name='launch')
+          upx_exclude=[])
