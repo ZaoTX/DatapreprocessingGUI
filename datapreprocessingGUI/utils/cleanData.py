@@ -53,7 +53,7 @@ def removeMissing(d,p):
       df.to_csv(outpath+'/'+'removeMissing.csv',index=False)
 # compute DBSCAN algorithm for each individual to detect the outlier      
 # return a list of the outlier index        
-def Clustering(d,p,eps):
+def Clustering(d,p,eps,minPts):
     import numpy as np
     from sklearn.cluster import DBSCAN
     sizeOfoutput=0
@@ -68,7 +68,7 @@ def Clustering(d,p,eps):
         # stack the lists
         position_X=np.column_stack((latList, lngList,heightList))
         position_X = position_X.astype(np.float64)
-        clustering = DBSCAN(eps=eps, min_samples=2).fit(position_X)
+        clustering = DBSCAN(eps=eps, min_samples=minPts).fit(position_X)
         labels = clustering.labels_
         
         #index of -1(outliers)
@@ -83,7 +83,7 @@ def Clustering(d,p,eps):
     return outputLines,outputList
 # ST DBSCAN( need an extra normalization for timestamp)
 # input: d,p, eps1: eps for location, eps2: eps for timestamp,  reg: regular language for time
-def STDBSCAN_Clustering(d,p,eps1,eps2,reg):
+def STDBSCAN_Clustering(d,p,eps1,eps2,reg,minPts):
     import numpy as np
     from st_dbscan import ST_DBSCAN
     from datetime import datetime
@@ -109,7 +109,7 @@ def STDBSCAN_Clustering(d,p,eps1,eps2,reg):
         # stack the lists
         position_X=np.column_stack((nor_timeList,latList, lngList,heightList))
         position_X = position_X.astype(np.float64)
-        clustering = ST_DBSCAN(eps1=eps1,eps2=eps2, min_samples=2).fit(position_X)
+        clustering = ST_DBSCAN(eps1=eps1,eps2=eps2, min_samples=minPts).fit(position_X)
         labels = clustering.labels
         
         #index of -1(outliers)

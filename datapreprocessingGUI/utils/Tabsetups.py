@@ -467,20 +467,29 @@ def setupTab4(tab):
      
      entry=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
+     entry4=ttk.Entry(tab,textvariable = tk.StringVar(),
+                 width=5)
      tab3_TextLabel4 = ttk.Label(tab, text= "eps=")
      tab3_TextLabel4.place(relx = 0.2, rely = 0.55)
+     tab3_TextLabel8 = ttk.Label(tab, text= "MinPts=")
+     tab3_TextLabel8.place(relx = 0.43, rely = 0.55)
      entry.place(
                  relx=0.25,rely=0.55,
+                 height=25
+                 )
+     entry4.place(
+                 relx=0.51,rely=0.55,
                  height=25
                  )
      launchBtn= ttk.Button(tab, text="launch", command = lambda: launchDBSCAN())
      launchBtn.place(relx = 0.8, rely = 0.55)
      def launchDBSCAN():
          eps=float(entry.get())
+         minPts=float(entry4.get())
          #print(eps)
          from utils.cleanData import Clustering
          import launch
-         outliersIndex,outlierLists = Clustering(launch.d,launch.pSetups,eps)
+         outliersIndex,outlierLists = Clustering(launch.d,launch.pSetups,eps,minPts)
          launch.iB.outlierLists=outlierLists
          print('The index of the outliers are:')
          print(outliersIndex)
@@ -504,11 +513,20 @@ def setupTab4(tab):
                  relx=0.51,rely=0.75,
                  height=25
                  )
+     tab3_TextLabel9 = ttk.Label(tab, text= "MinPts=")
+     tab3_TextLabel9.place(relx = 0.61, rely = 0.75)
+     entry3=ttk.Entry(tab,textvariable = tk.StringVar(),
+                 width=5)
+     entry3.place(
+                 relx=0.69,rely=0.75,
+                 height=25
+                 )
      launchBtn= ttk.Button(tab, text="launch", command = lambda: launchSTDBSCAN())
      launchBtn.place(relx = 0.8, rely = 0.75)
      def launchSTDBSCAN():
          eps1=float(entry1.get())
          eps2=float(entry2.get())
+         minPts=float(entry3.get())
          from utils.cleanData import STDBSCAN_Clustering
          import launch
          reg=''
@@ -516,7 +534,7 @@ def setupTab4(tab):
              reg='%Y-%m-%d %H:%M:%S.%f'
          else: 
              reg =launch.iB.timestampReg
-         outliersIndex,outlierLists = STDBSCAN_Clustering(launch.d,launch.pSetups,eps1,eps2,reg)
+         outliersIndex,outlierLists = STDBSCAN_Clustering(launch.d,launch.pSetups,eps1,eps2,reg,minPts)
          launch.iB.outlierLists=outlierLists
          print('The index of the outliers are:')
          print(outliersIndex)
