@@ -29,4 +29,4 @@ st_dbscan == 0.1.5
 # E:\BA\preprocessingGUI\DatapreprocessingGUI\datapreprocessingGUI\utils\Distribution.py: 8
 # E:\BA\preprocessingGUI\DatapreprocessingGUI\datapreprocessingGUI\utils\cleanData.py: 57,87
 # E:\BA\preprocessingGUI\DatapreprocessingGUI\datapreprocessingGUI\utils\datafiltering.py: 12
-~umpy == 1.16.5
+numpy == 1.16.5
