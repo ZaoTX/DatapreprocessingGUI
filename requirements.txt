@@ -14,4 +14,4 @@ scikit_learn == 0.21.3
 
 st_dbscan == 0.1.5
 
-numpy == 1.16.5
+numpy >= 1.16.5
