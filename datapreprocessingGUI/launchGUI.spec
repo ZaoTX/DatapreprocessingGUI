@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['launch.py'],
+a = Analysis(['launchGUI.py'],
              pathex=['/datapreprocessingGUI'],
              binaries=[],
              datas=[],
