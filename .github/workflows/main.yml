@@ -23,9 +23,7 @@ jobs:
       run: |
             python -m pip install --upgrade pip
             pip install Cython
-            pip install --upgrade setuptools
             pip install --upgrade wheel
-            pip install flowdas-meta==1.0.1
             pip install -r requirements.txt
  
        
