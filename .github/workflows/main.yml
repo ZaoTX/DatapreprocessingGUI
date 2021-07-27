@@ -24,6 +24,7 @@ jobs:
            pip install pigar
            pigar
            pip install -r requirements.txt
+           pip freeze
        
     - name: set pythonpath
       run: |
