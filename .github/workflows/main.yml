@@ -23,7 +23,7 @@ jobs:
            /opt/hostedtoolcache/Python/3.7.11/x64/bin/python -m pip install --upgrade pip
            
     - name: Install pigar
-      run:| 
+      run: | 
           pip install pigar
           pigar
           pip install -r requirements.txt
