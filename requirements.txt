@@ -2,6 +2,8 @@
 
 Cython == 0.29.13
 
+numpy >= 1.16.5
+
 geopy == 2.1.0
 
 
@@ -15,6 +17,6 @@ scikit_learn == 0.21.3
 
 st_dbscan == 0.1.5
 
-numpy >= 1.16.5
+
 
 
