@@ -34,7 +34,7 @@ def setupTab1(tab):
            relx=0.1,rely=0.1,
            height=30
            )
-     import launch
+     import launchGUI
      def open_dir():
          try:
            
@@ -45,7 +45,7 @@ def setupTab1(tab):
                 
                 
                 
-                setupWorkdir(filePath,launch.d)
+                setupWorkdir(filePath, launchGUI.d)
          except:pass
      ########### Select csv ###################
      tab1_TextLabel2 = ttk.Label(tab, text= "Please select your dataset(csv)")
@@ -71,63 +71,63 @@ def setupTab1(tab):
                 
                 try:
                       #setup csv.DictReader, filepath, workdir 
-                      setupData(filename,launch.d)
-                      choices1=launch.d.headers
+                      setupData(filename, launchGUI.d)
+                      choices1=launchGUI.d.headers
                       multibox1.config(values=choices1)
-                      choices2=launch.d.headers
+                      choices2=launchGUI.d.headers
                       multibox2.config(values=choices2)
-                      choices3=launch.d.headers
+                      choices3=launchGUI.d.headers
                       multibox3.config(values=choices3)
-                      choices4=launch.d.headers
+                      choices4=launchGUI.d.headers
                       multibox4.config(values=choices4)
-                      choices5=launch.d.headers+['------']
+                      choices5= launchGUI.d.headers + ['------']
                       multibox5.config(values=choices5)
                       
                 except: 
                     print('there is something wrong in gui genderation(Tab1)')
-                updateTab2(launch.main.tab2,launch.d)
+                updateTab2(launchGUI.main.tab2, launchGUI.d)
 
       ############ define the headers for important information #############
      def getHeader1(event):#id
          idHeader=multibox1.get()
-         import launch
-         launch.pSetups.idHeaderName=idHeader
-         if idHeader not in launch.pSetups.choosenHeaders:
-             launch.pSetups.choosenHeaders.append(idHeader)
-         launch.iB.idHeaderName=idHeader
-         print(launch.pSetups.idHeaderName)
+         import launchGUI
+         launchGUI.pSetups.idHeaderName=idHeader
+         if idHeader not in launchGUI.pSetups.choosenHeaders:
+             launchGUI.pSetups.choosenHeaders.append(idHeader)
+         launchGUI.iB.idHeaderName=idHeader
+         print(launchGUI.pSetups.idHeaderName)
      def getHeader2(event):#time
          timeHeader=multibox2.get()
-         import launch
-         launch.pSetups.timestampHeaderName=timeHeader
-         if timeHeader not in launch.pSetups.choosenHeaders:
-             launch.pSetups.choosenHeaders.append(timeHeader)
-         launch.iB.timestampHeaderName=timeHeader
-         print(launch.pSetups.timestampHeaderName)
+         import launchGUI
+         launchGUI.pSetups.timestampHeaderName=timeHeader
+         if timeHeader not in launchGUI.pSetups.choosenHeaders:
+             launchGUI.pSetups.choosenHeaders.append(timeHeader)
+         launchGUI.iB.timestampHeaderName=timeHeader
+         print(launchGUI.pSetups.timestampHeaderName)
      def getHeader3(event):#lat
          latHeader=multibox3.get()
-         import launch
-         launch.pSetups.latHeaderName=latHeader
-         if latHeader not in launch.pSetups.choosenHeaders:
-             launch.pSetups.choosenHeaders.append(latHeader)
-         launch.iB.latHeaderName=latHeader
-         print(launch.pSetups.latHeaderName)
+         import launchGUI
+         launchGUI.pSetups.latHeaderName=latHeader
+         if latHeader not in launchGUI.pSetups.choosenHeaders:
+             launchGUI.pSetups.choosenHeaders.append(latHeader)
+         launchGUI.iB.latHeaderName=latHeader
+         print(launchGUI.pSetups.latHeaderName)
      def getHeader4(event):#lng
          lngHeader=multibox4.get()
-         import launch
-         launch.pSetups.lngHeaderName=lngHeader
-         if lngHeader not in launch.pSetups.choosenHeaders:
-             launch.pSetups.choosenHeaders.append(lngHeader)
-         launch.iB.lngHeaderName=lngHeader
-         print(launch.pSetups.lngHeaderName)
+         import launchGUI
+         launchGUI.pSetups.lngHeaderName=lngHeader
+         if lngHeader not in launchGUI.pSetups.choosenHeaders:
+             launchGUI.pSetups.choosenHeaders.append(lngHeader)
+         launchGUI.iB.lngHeaderName=lngHeader
+         print(launchGUI.pSetups.lngHeaderName)
      def getHeader5(event):#height
          heightHeader=multibox5.get()
-         import launch
-         launch.pSetups.heightHeaderName=heightHeader
-         if heightHeader not in launch.pSetups.choosenHeaders:
-             launch.pSetups.choosenHeaders.append(heightHeader)
-         launch.iB.heightHeaderName=heightHeader
-         print(launch.pSetups.heightHeaderName)
+         import launchGUI
+         launchGUI.pSetups.heightHeaderName=heightHeader
+         if heightHeader not in launchGUI.pSetups.choosenHeaders:
+             launchGUI.pSetups.choosenHeaders.append(heightHeader)
+         launchGUI.iB.heightHeaderName=heightHeader
+         print(launchGUI.pSetups.heightHeaderName)
      tab1_TextLabel3 = ttk.Label(tab, text= "Please define the critical header names below")
      tab1_TextLabel3.place(relx = 0.3, rely = 0.35) 
      
@@ -178,7 +178,7 @@ def setupTab1(tab):
      multibox5.bind("<<ComboboxSelected>>", getHeader5)
      def confirmSelection():
          from utils.DataReport import getIndividualNum
-         from launch import d,pSetups,main
+         from launchGUI import d,pSetups,main
          getIndividualNum(d,pSetups)
          setupTab7(main.tab7)
          main.tabNotebook.select(main.tab7)
@@ -248,16 +248,16 @@ def updateTab2(tab,d):
               #get list index 
               listbox.select_set(s)
       def useDefault(event):
-            import launch
+            import launchGUI
             #the user use the default headers and the headers they selected
             if(not var1.get()):
-                launch.pSetups.useDefaultInfo()
-                selectValues(launch.pSetups.choosenHeaders)
+                launchGUI.pSetups.useDefaultInfo()
+                selectValues(launchGUI.pSetups.choosenHeaders)
                 print("Use default info")
             else:
                 
-                deselectValues(launch.pSetups.choosenHeaders)
-                launch.pSetups.cleanDefaultInfo()
+                deselectValues(launchGUI.pSetups.choosenHeaders)
+                launchGUI.pSetups.cleanDefaultInfo()
                 print("Deselect default info")
       checkBtn.bind("<ButtonPress>",useDefault)
       checkBtn.place(relx = 0.75, rely = 0.8)
@@ -266,16 +266,16 @@ def updateTab2(tab,d):
       checkBtn2=ttk.Checkbutton(tab, text="Restore Last Configuration", variable=var2)
       
       def useLast(event):
-            import launch
+            import launchGUI
             #the user use the default headers and the headers they selected
             if(not var2.get()):
-                launch.pSetups.updateLastInfo()
-                selectValues(launch.pSetups.choosenHeaders)
+                launchGUI.pSetups.updateLastInfo()
+                selectValues(launchGUI.pSetups.choosenHeaders)
                 print("Use last info")
             else:
-                deselectValues(launch.pSetups.choosenHeaders)
+                deselectValues(launchGUI.pSetups.choosenHeaders)
                 
-                launch.pSetups.cleanLasttInfo()
+                launchGUI.pSetups.cleanLasttInfo()
                 print("Deselect last info")
       checkBtn2.bind("<ButtonPress>",useLast)
       checkBtn2.place(relx = 0.75, rely = 0.7)
@@ -286,19 +286,19 @@ def updateTab2(tab,d):
       #once the update is done jump to new tab
       #
       def confirm():
-            import launch
-            iB=launch.iB
+            import launchGUI
+            iB=launchGUI.iB
             values = [str(listbox.get(idx)) for idx in listbox.curselection()]
 
-            launch.pSetups.choosenHeaders=launch.pSetups.choosenHeaders+values
+            launchGUI.pSetups.choosenHeaders= launchGUI.pSetups.choosenHeaders + values
             #make value unique
-            launch.pSetups.choosenHeaders=list(set(launch.pSetups.choosenHeaders))
-            launch.pSetups.setBasicInfo(iB.idHeaderName,iB.latHeaderName,iB.lngHeaderName,iB.heightHeaderName,iB.timestampHeaderName)
-            print (', '.join(launch.pSetups.choosenHeaders))
+            launchGUI.pSetups.choosenHeaders=list(set(launchGUI.pSetups.choosenHeaders))
+            launchGUI.pSetups.setBasicInfo(iB.idHeaderName, iB.latHeaderName, iB.lngHeaderName, iB.heightHeaderName, iB.timestampHeaderName)
+            print (', '.join(launchGUI.pSetups.choosenHeaders))
 
             from utils.datafiltering import filtering
-            filtering(launch.pSetups.choosenHeaders,launch.d)
-            launch.pSetups.storeLastInfo()
+            filtering(launchGUI.pSetups.choosenHeaders, launchGUI.d)
+            launchGUI.pSetups.storeLastInfo()
             
             
                   
@@ -346,8 +346,8 @@ def setupTab3(tab):
      # Label for information
      defaultReg=tk.StringVar()
      defaultReg.set('%Y-%m-%d %H:%M:%S.%f')
-     import launch
-     launch.iB.timestampReg='%Y-%m-%d %H:%M:%S.%f'
+     import launchGUI
+     launchGUI.iB.timestampReg= '%Y-%m-%d %H:%M:%S.%f'
      entry1=tk.Entry(tab,
            width=108)
      entry1.config(textvariable = defaultReg,state='readonly',relief='flat')
@@ -386,17 +386,17 @@ def setupTab3(tab):
                  print(reg)
                  #split by which time difference
                  typ=v2.get()
-                 import launch
+                 import launchGUI
                  from utils.spliting import splitingTime
                  seconds=entry3.get()
-                 splitingTime(launch.d,launch.pSetups,reg,typ,seconds)
-                 launch.iB.timestampReg=str(reg)
+                 splitingTime(launchGUI.d, launchGUI.pSetups, reg, typ, seconds)
+                 launchGUI.iB.timestampReg=str(reg)
                  
 #                 
            else:#split by inidividual
-                 import launch
+                 import launchGUI
                  from utils.spliting import individualSpliting
-                 individualSpliting(launch.d,launch.pSetups)
+                 individualSpliting(launchGUI.d, launchGUI.pSetups)
                  #return
 def setupTab4(tab):
      # Label for information
@@ -440,19 +440,19 @@ def setupTab4(tab):
            choice = multibox.get()
            print(choice)
            
-           import launch
+           import launchGUI
            if(choice=='cubic interpolation'):
                  from utils.cleanData import interpolation
-                 interpolation(launch.d,launch.pSetups, 'cubic')
+                 interpolation(launchGUI.d, launchGUI.pSetups, 'cubic')
            elif(choice=='linear interpolation'):
                  from utils.cleanData import interpolation
-                 interpolation(launch.d,launch.pSetups, 'linear')
+                 interpolation(launchGUI.d, launchGUI.pSetups, 'linear')
            elif(choice=='quadratic interpolation'):
                  from utils.cleanData import interpolation
-                 interpolation(launch.d,launch.pSetups, 'quadratic')
+                 interpolation(launchGUI.d, launchGUI.pSetups, 'quadratic')
            elif(choice=='remove the data with missing value'): 
                  from utils.cleanData import removeMissing
-                 removeMissing(launch.d,launch.pSetups)
+                 removeMissing(launchGUI.d, launchGUI.pSetups)
 #           ind=choices.index(choice,0,len(choices))
 #           print(ind)
 #           if(ind==0):#remove value
@@ -488,9 +488,9 @@ def setupTab4(tab):
          minPts=float(entry4.get())
          #print(eps)
          from utils.cleanData import Clustering
-         import launch
-         outliersIndex,outlierLists = Clustering(launch.d,launch.pSetups,eps,minPts)
-         launch.iB.outlierLists=outlierLists
+         import launchGUI
+         outliersIndex,outlierLists = Clustering(launchGUI.d, launchGUI.pSetups, eps, minPts)
+         launchGUI.iB.outlierLists=outlierLists
          print('The index of the outliers are:')
          print(outliersIndex)
          print('Now you can refresh the 2D distirbution to see where the outliers are located')
@@ -528,14 +528,14 @@ def setupTab4(tab):
          eps2=float(entry2.get())
          minPts=float(entry3.get())
          from utils.cleanData import STDBSCAN_Clustering
-         import launch
+         import launchGUI
          reg=''
-         if launch.iB.timestampReg=='':
+         if launchGUI.iB.timestampReg== '':
              reg='%Y-%m-%d %H:%M:%S.%f'
          else: 
-             reg =launch.iB.timestampReg
-         outliersIndex,outlierLists = STDBSCAN_Clustering(launch.d,launch.pSetups,eps1,eps2,reg,minPts)
-         launch.iB.outlierLists=outlierLists
+             reg =launchGUI.iB.timestampReg
+         outliersIndex,outlierLists = STDBSCAN_Clustering(launchGUI.d, launchGUI.pSetups, eps1, eps2, reg, minPts)
+         launchGUI.iB.outlierLists=outlierLists
          print('The index of the outliers are:')
          print(outliersIndex)
          print('Now you can refresh the 2D distirbution to see where the outliers are located')
@@ -573,7 +573,7 @@ def setupTab5(tab):
              tab5_TextLabel3.config(text="I want to sample for each")
              tab5_TextLabel4.config(text="Points")
              tab5_TextLabel3.place(relx=0.3,rely=0.4)
-             tab5_TextLabel4.place(relx=0.55,rely=0.4)
+             tab5_TextLabel4.place(relx=0.6,rely=0.4)
          elif(choice == 'Douglas Peucker Sampling'):
              entry.place_forget()#hid
              tab5_TextLabel3.place_forget()#hid
@@ -639,52 +639,52 @@ def setupTab5(tab):
      launchBtn.place(relx = 0.8, rely = 0.4)
      def sampling():
          choice = multibox.get()
-         import launch
+         import launchGUI
          #calculate run Time
          if(choice=='Average Sampling'):
              n=int(entry.get())
              from utils.sampling import averageSampling
              start = timeit.default_timer()
-             averageSampling(launch.d,launch.pSetups,n,launch.iB)
+             averageSampling(launchGUI.d, launchGUI.pSetups, n, launchGUI.iB)
              stop = timeit.default_timer()
-             launch.iB.runtime=stop-start
+             launchGUI.iB.runtime= stop - start
          elif(choice == 'Douglas Peucker Sampling'):
              epsilon=float(entry.get())
              from utils.sampling import Douglas
              start = timeit.default_timer()
-             Douglas(launch.d,launch.pSetups,epsilon,launch.iB)
+             Douglas(launchGUI.d, launchGUI.pSetups, epsilon, launchGUI.iB)
              stop = timeit.default_timer()
-             launch.iB.runtime=stop-start
+             launchGUI.iB.runtime= stop - start
          elif(choice == 'TD_TR'):
              epsilon=float(entry.get())
              from utils.sampling import TD_TR
              start = timeit.default_timer()
-             TD_TR(launch.d,launch.pSetups,epsilon,launch.iB)
+             TD_TR(launchGUI.d, launchGUI.pSetups, epsilon, launchGUI.iB)
              stop = timeit.default_timer()
-             launch.iB.runtime=stop-start
+             launchGUI.iB.runtime= stop - start
          elif(choice == 'TD_SP'):
              epsilon=float(entry.get())
              from utils.sampling import TD_SP
              start = timeit.default_timer()
-             TD_SP(launch.d,launch.pSetups,epsilon,launch.iB)
+             TD_SP(launchGUI.d, launchGUI.pSetups, epsilon, launchGUI.iB)
              stop = timeit.default_timer()
-             launch.iB.runtime=stop-start
+             launchGUI.iB.runtime= stop - start
          elif(choice == 'SQUISH'):
              epsilon=float(entry.get())
              from utils.sampling import SQUISH
              start = timeit.default_timer()
-             SQUISH(launch.d,launch.pSetups,epsilon,launch.iB)
+             SQUISH(launchGUI.d, launchGUI.pSetups, epsilon, launchGUI.iB)
              stop = timeit.default_timer()
-             launch.iB.runtime=stop-start
+             launchGUI.iB.runtime= stop - start
      launchBtn2= ttk.Button(tab, text="PostAnalysis", command = lambda: launchAnalysis())
      launchBtn2.place(relx = 0.8, rely = 0.8)
      def launchAnalysis():
          from utils.DataReport import getPostInfo
-         import launch
-         getPostInfo(launch.iB)
+         import launchGUI
+         getPostInfo(launchGUI.iB)
          
-         updateTab6(launch.main.tab6,launch.d,launch.iB)
-         launch.main.tabNotebook.select(launch.main.tab6)
+         updateTab6(launchGUI.main.tab6, launchGUI.d, launchGUI.iB)
+         launchGUI.main.tabNotebook.select(launchGUI.main.tab6)
 # summarize of sampling:
 # 1. The Compression ratio
 # 2. Average synchronized Euclidean distance
@@ -701,13 +701,13 @@ def updateTab6(tab,d,iB):
        child.destroy()
     tab6_TextLabel1 = ttk.Label(tab, text= "Summary of Sampling", font='bold')
     tab6_TextLabel1.place(relx = 0.35, rely = 0.05)
-    import launch
-    choices=launch.iB.individuals
+    import launchGUI
+    choices=launchGUI.iB.individuals
     #show the information of selected ID
     def showIdInfo(event):
           idName=multibox.get()
           from utils.DataReport import PostAnalysis
-          PostAnalysis(idName,launch.d,launch.iB)
+          PostAnalysis(idName, launchGUI.d, launchGUI.iB)
           #setup texts:
           compressionratio=str(round(iB.compressionratio,3))+'%'
           tab6_TextLabel21.config(text= compressionratio)
@@ -769,12 +769,12 @@ def setupTab7(tab):
      #clean tab
     for child in tab.winfo_children():
        child.destroy()
-    import launch
+    import launchGUI
     tab7_TextLabel1 = ttk.Label(tab, text= "Data Report", font='bold')
     tab7_TextLabel1.place(relx = 0.35, rely = 0.05)
     tab7_TextLabel2 = ttk.Label(tab, text= "Please select an individual")
     tab7_TextLabel2.place(relx = 0.1, rely = 0.15)
-    choices=launch.d.individuals
+    choices=launchGUI.d.individuals
     multibox=ttk.Combobox(tab,values=choices
                            ,width=40
                            ,font=12
@@ -804,18 +804,18 @@ def setupTab7(tab):
     def showIdInfo(event):
           idName=multibox.get()
           from utils.DataReport import preAnalysis
-          preAnalysis(idName,launch.d,launch.iB)
+          preAnalysis(idName, launchGUI.d, launchGUI.iB)
           #setup texts:
-          tab7_TextLabel31.config(text=launch.iB.numOfDatapoints)
-          tab7_TextLabel41.config(text= launch.iB.missingvalue)
-          tab7_TextLabel51.config(text= launch.iB.missingLat)
-          tab7_TextLabel61.config(text= launch.iB.missingLng)
-          tab7_TextLabel71.config(text= launch.iB.missingHeight)
-          tab7_TextLabel81.config(text= launch.iB.startPos)
-          tab7_TextLabel91.config(text= launch.iB.endPos)
+          tab7_TextLabel31.config(text=launchGUI.iB.numOfDatapoints)
+          tab7_TextLabel41.config(text= launchGUI.iB.missingvalue)
+          tab7_TextLabel51.config(text= launchGUI.iB.missingLat)
+          tab7_TextLabel61.config(text= launchGUI.iB.missingLng)
+          tab7_TextLabel71.config(text= launchGUI.iB.missingHeight)
+          tab7_TextLabel81.config(text= launchGUI.iB.startPos)
+          tab7_TextLabel91.config(text= launchGUI.iB.endPos)
 
-          tab7_TextLabel101.config(text= launch.iB.startTime)
-          tab7_TextLabel111.config(text= launch.iB.endTime)
+          tab7_TextLabel101.config(text= launchGUI.iB.startTime)
+          tab7_TextLabel111.config(text= launchGUI.iB.endTime)
     multibox.bind("<<ComboboxSelected>>", showIdInfo)
     tab7_TextLabel3 = ttk.Label(tab, text= "The number of datapoints: ")
     tab7_TextLabel3.place(relx = 0.1, rely = 0.2)
@@ -840,11 +840,11 @@ def setupTab7(tab):
     
     def showDistibution():
         
-        updateTab8(launch.main.tab8)
-        launch.main.tabNotebook.select(launch.main.tab8)
+        updateTab8(launchGUI.main.tab8)
+        launchGUI.main.tabNotebook.select(launchGUI.main.tab8)
     def showTimelineOverlap():
-        updateTab9(launch.main.tab9)
-        launch.main.tabNotebook.select(launch.main.tab9)
+        updateTab9(launchGUI.main.tab9)
+        launchGUI.main.tabNotebook.select(launchGUI.main.tab9)
         
     #show Distribution
     btn1 = ttk.Button(tab, text ='Show Distibution', command = lambda:showDistibution()) 
@@ -863,7 +863,7 @@ def updateTab8(tab):
     FigureCanvasTkAgg, NavigationToolbar2Tk)
     #from matplotlib.backend_bases import key_press_handler
     from matplotlib.figure import Figure
-    import launch
+    import launchGUI
     from utils.Distribution import plotHorizontal,plotDensity,plotDensity3D
     #import matplotlib.patches as mpatch
     
@@ -874,7 +874,7 @@ def updateTab8(tab):
     main_plot.set_xlabel('longitude')
     main_plot.set_ylabel('latitude')
     
-    plotDensity(main_plot,launch.iB,launch.d)
+    plotDensity(main_plot, launchGUI.iB, launchGUI.d)
 
     canvas = FigureCanvasTkAgg(fig, master=tab)  # A tk.DrawingArea.
     canvas.draw()
@@ -889,7 +889,7 @@ def updateTab9(tab):
     FigureCanvasTkAgg, NavigationToolbar2Tk)
     #from matplotlib.backend_bases import key_press_handler
     from matplotlib.figure import Figure
-    import launch
+    import launchGUI
 #    import matplotlib.dates as mdates
 #    import pandas as pd
 #    import matplotlib.pyplot as plt
@@ -902,11 +902,11 @@ def updateTab9(tab):
     main_plot.set_xlabel('Timeline')
     main_plot.set_ylabel('Indiviudal')
     reg=''
-    if launch.iB.timestampReg=='':
+    if launchGUI.iB.timestampReg== '':
              reg='%Y-%m-%d %H:%M:%S.%f'
     else: 
-             reg =launch.iB.timestampReg
-    plotTimeline(fig,main_plot,launch.iB,launch.d,reg)
+             reg =launchGUI.iB.timestampReg
+    plotTimeline(fig, main_plot, launchGUI.iB, launchGUI.d, reg)
 
     canvas = FigureCanvasTkAgg(fig, master=tab)  # A tk.DrawingArea.
     canvas.draw()
