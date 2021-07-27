@@ -2,8 +2,6 @@
 
 Cython == 0.29.13
 
-flowdas-meta < 1.1
-
 flowdas-meta >= 1.0.1
 
 numpy >= 1.16.5
