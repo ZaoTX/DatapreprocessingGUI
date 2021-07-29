@@ -13,7 +13,7 @@ import timeit
 
 
 
-#setup tab1: 
+#setup tab1:
 #   tab1 includes: select directory, select csv file' button , 
 #   their label to explain the function
 
@@ -880,7 +880,8 @@ def updateTab8(tab):
     canvas.draw()
     #setup position
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
-def updateTab9(tab):   
+def updateTab9(tab):
+    
     #clean tab
     for child in tab.winfo_children():
        child.destroy()

@@ -5,7 +5,7 @@ Created on Fri Jan 29 22:36:36 2021
 @author: ZiyaoHe
 """
 import matplotlib.pyplot as plt
-import numpy as np
+#import numpy as np
 import matplotlib.patches as mpatch
 '''
  A Horizontal Distribution of the individual using matplotlib
@@ -310,12 +310,12 @@ def plotDensity3D(main,iB,d):
  Assumption: for each individual it starts from first timestamp and end at the last timestamp 
 '''
 def plotTimeline(fig,main,iB,d,reg):
-    import matplotlib.dates as md
+    #import matplotlib.dates as md
     import pandas as pd
     # See https://github.com/facebook/prophet/issues/999
     #register_matplotlib_converters()
     #warnings.warn(msg, FutureWarning)
-    pd.plotting.register_matplotlib_converters()
+    #pd.plotting.register_matplotlib_converters()
     # find individual list
     IDList=d.individuals
     timeLists=d.timeLists

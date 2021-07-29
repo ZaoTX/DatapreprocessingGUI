@@ -1,14 +1,13 @@
 # -*- mode: python ; coding: utf-8 -*-
 import sys ; sys.setrecursionlimit(sys.getrecursionlimit() * 5)
-
 block_cipher = None
 
 
 a = Analysis(['launchGUI.py'],
-             pathex=['/datapreprocessingGUI'],
+             pathex=['E:\\BA\\preprocessingGUI\\DatapreprocessingGUI\\datapreprocessingGUI'],
              binaries=[],
              datas=[],
-             hiddenimports=[],
+             hiddenimports=['matplotlib'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -18,16 +17,21 @@ a = Analysis(['launchGUI.py'],
              noarchive=False)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
-
 exe = EXE(pyz,
-          a.scripts, 
-          a.binaries,
-          a.zipfiles,
-          a.datas,
+          a.scripts,
           [],
+          exclude_binaries=True,
           name='launchGUI',
-          debug=True,
+          debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          upx_exclude=[])
+          console=True )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='launchGUI')
