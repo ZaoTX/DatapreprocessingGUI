@@ -680,21 +680,21 @@ def  SQUISH(d,p,size,iB):
     #To implement this we need a size for the buffer, and the list of positions
     def SQUISH_Algo(latList,lngList,heightList,timeList,size):
         # update the whole SED list
-        def updateSED(LatList,LngList,HeightList,timeList):
+        def updateSED(LatList,LngList,HeightList,TimeList,latList,lngList,heightList,timeList):
             import decimal
             import math
             from datetime import datetime
             length=len(LatList)
             value=0
-            first_lat = LatList[0]
-            first_lng = LngList[0]
-            first_height = HeightList[0]
+            first_lat = float(latList[0])
+            first_lng = float(lngList[0])
+            first_height = float(heightList[0])
             first_timestamp = timeList[0]
             
-            last_lat = LatList[-1]
-            last_lng = LngList[-1]
-            last_height = HeightList[-1]
-            last_timestamp = timeList[-1]
+            last_lat = float(latList[-1])
+            last_lng = float(lngList[-1])
+            last_height = float(heightList[-1])
+            last_timestamp =timeList[-1]
             
             lastTimeObj=datetime.strptime(last_timestamp,iB.timestampReg)
             firstTimeObj=datetime.strptime(first_timestamp,iB.timestampReg)
@@ -702,7 +702,7 @@ def  SQUISH(d,p,size,iB):
             sedList=[]
             for i in range(0,length):
                 #get current location
-                time =timeList[i]
+                time =TimeList[i]
                 lat = LatList[i]
                 lng = LngList[i]
                 height = HeightList[i]
@@ -717,20 +717,20 @@ def  SQUISH(d,p,size,iB):
                 sedList.append(value)
             return sedList
         #calculate the SED of (lat,lng,height)
-        def calculateSED(lat,lng,height,time,LatList,LngList,HeightList,timeList):
+        def calculateSED(lat,lng,height,time,LatList,LngList,HeightList,latList,lngList,heightList,timeList):
             import math
             from datetime import datetime
             import decimal
-            first_lat = LatList[0]
-            first_lng = LngList[0]
-            first_height = HeightList[0]
+            first_lat = float(latList[0])
+            first_lng = float(lngList[0])
+            first_height = float(heightList[0])
             first_timestamp = timeList[0]
-            print(first_timestamp)
-            last_lat = LatList[-1]
-            last_lng = LngList[-1]
-            last_height = HeightList[-1]
+            
+            last_lat = float(latList[-1])
+            last_lng = float(lngList[-1])
+            last_height = float(heightList[-1])
             last_timestamp = timeList[-1]
-            print(last_timestamp)
+            
             lastTimeObj=datetime.strptime(last_timestamp,iB.timestampReg)
             firstTimeObj=datetime.strptime(first_timestamp,iB.timestampReg)
             timeDiff=decimal.Decimal(abs((firstTimeObj-lastTimeObj).total_seconds()))
@@ -745,24 +745,24 @@ def  SQUISH(d,p,size,iB):
             value = math.sqrt((lat-lati)**2+(lng-lngi)**2+(height-hi)**2)
             return value
         # get the SED of given index
-        def getSED(ind,LatList,LngList,HeightList,timeList):
+        def getSED(ind,LatList,LngList,HeightList,TimeList,latList,lngList,heightList,timeList):
             import math
             from datetime import datetime
             import decimal
-            first_lat = LatList[0]
-            first_lng = LngList[0]
-            first_height = HeightList[0]
+            first_lat = float(latList[0])
+            first_lng = float(lngList[0])
+            first_height = float(heightList[0])
             first_timestamp = timeList[0]
             
-            last_lat = LatList[-1]
-            last_lng = LngList[-1]
-            last_height = HeightList[-1]
-            last_timestamp = timeList[-1]
-            
+            last_lat = float(latList[-1])
+            last_lng = float(lngList[-1])
+            last_height = float(heightList[-1])
+            last_timestamp =timeList[-1]
+        
             lat = LatList[ind]
             lng = LngList[ind]
             height = HeightList[ind]
-            time = timeList[ind]
+            time = TimeList[ind]
             
             lastTimeObj=datetime.strptime(last_timestamp,iB.timestampReg)
             firstTimeObj=datetime.strptime(first_timestamp,iB.timestampReg)
@@ -800,7 +800,7 @@ def  SQUISH(d,p,size,iB):
             else:
                 
                 
-                sedList= updateSED(out_latList,out_lngList,out_heightList,out_timeList)
+                sedList= updateSED(out_latList,out_lngList,out_heightList,out_timeList,latList,lngList,heightList,timeList)
                 #find the smallest sed
                 min_sed= min(sedList)
                 ind = sedList.index(min_sed)
@@ -817,21 +817,21 @@ def  SQUISH(d,p,size,iB):
                 out_heightList.append(cur_height)
                 out_timeList.append(cur_time)
                 #get the current sed of new point
-                cur_SED=calculateSED(cur_lat,cur_lng,cur_height,cur_time,out_latList,out_lngList,out_heightList,out_timeList)
+                cur_SED=calculateSED(cur_lat,cur_lng,cur_height,cur_time,out_latList,out_lngList,out_heightList,latList,lngList,heightList,timeList)
                 sedList.append(cur_SED)
                 #update the sed of its neighbor the current i th point
                 if(ind==0):
-                    sed=getSED(ind,out_latList,out_lngList,out_heightList,out_timeList)
+                    sed=getSED(ind,out_latList,out_lngList,out_heightList,out_timeList,latList,lngList,heightList,timeList)
                     sedList[ind]=sed
                 elif(ind==int(size)-1):
                     #update second last element
-                    sed_i1=updateSED(ind-1,out_latList,out_lngList,out_heightList,out_timeList)
+                    sed_i1=getSED(ind-1,out_latList,out_lngList,out_heightList,out_timeList,latList,lngList,heightList,timeList)
                     sedList[ind-1]=sed_i1
                 else:
                     #update 2 neighbors
-                    sed_i1=updateSED(ind-1,out_latList,out_lngList,out_heightList,out_timeList)
+                    sed_i1=getSED(ind-1,out_latList,out_lngList,out_heightList,out_timeList,latList,lngList,heightList,timeList)
                     sedList[ind-1]=sed_i1
-                    sed_i2=updateSED(ind,out_latList,out_lngList,out_heightList,out_timeList)
+                    sed_i2=getSED(ind,out_latList,out_lngList,out_heightList,out_timeList,latList,lngList,heightList,timeList)
                     sedList[ind]=sed_i2
         return out_latList,out_lngList,out_heightList,out_timeList
     base_dir = d.workdir
