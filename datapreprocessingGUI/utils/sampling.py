@@ -734,7 +734,7 @@ def  SQUISH(d,p,size,iB):
             lastTimeObj=datetime.strptime(last_timestamp,iB.timestampReg)
             firstTimeObj=datetime.strptime(first_timestamp,iB.timestampReg)
             timeDiff=decimal.Decimal(abs((firstTimeObj-lastTimeObj).total_seconds()))
-            print(timeDiff)
+            #print(timeDiff)
             cur_timeObj=datetime.strptime(time,iB.timestampReg)
             curtimeDiff=decimal.Decimal(abs((firstTimeObj-cur_timeObj).total_seconds()))
             # interpolate lat,lng,height
