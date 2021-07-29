@@ -7,12 +7,8 @@ Created on Mon Dec  7 20:40:34 2020
 
 #split for each individual to get different IDs
 #return different ids and it's coordinates
-def getIndividualNum(d,p):
-    d.individuals=[]
-    d.timeLists=[]
-    d.heightLists=[]
-    d.latLists=[]
-    d.lngLists=[]
+def getIndividualNum(d,p,iB):
+    iB.outlierLists
     import csv
     #outputs: lists of list for each individual
     timeLists=[]

@@ -178,8 +178,8 @@ def setupTab1(tab):
      multibox5.bind("<<ComboboxSelected>>", getHeader5)
      def confirmSelection():
          from utils.DataReport import getIndividualNum
-         from launchGUI import d,pSetups,main
-         getIndividualNum(d,pSetups)
+         from launchGUI import d,pSetups,main,iB
+         getIndividualNum(d,pSetups,iB)
          setupTab7(main.tab7)
          main.tabNotebook.select(main.tab7)
          #updateTab8(main.tab8)
