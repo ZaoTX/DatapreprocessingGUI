@@ -9,6 +9,9 @@ from GUIFramework import MainGUI
 from utils.dataset import dataInfo
 from utils.processingSetups  import processingSetups
 from utils.infoBuffer import infoBuffer
+import tkinter as tk
+from tkinter import ttk
+
 
 
 iB=infoBuffer()

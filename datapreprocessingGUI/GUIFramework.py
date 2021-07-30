@@ -25,10 +25,12 @@ class MainGUI:
      
      def addTab(self):
            try:
+
                  from utils.Tabsetups import setupTab1,setupTab2,setupTab3,setupTab4,setupTab5,setupTab6,updateTab9
                  #set up style
                  self.setStyle()
-                 
+                 from tkinter import messagebox
+
                  #setup tab1:
                  setupTab1(self.tab1)
                  #setup tab2:
@@ -63,17 +65,23 @@ class MainGUI:
                                        ,expand=1
                                        ,padx=10, pady=10
                                        )
+                 messagebox.showinfo('movement data preprocessing application',
+                                     "You can check process information and error message ih the console.")
            except:
                  pass
                
      def setStyle(self):
            style= ttk.Style()
            style.theme_use('clam')
-     
+
+         
+
      def __init__(self):
            self.root.title("Movement Data Preprocessing")
            self.root.geometry("800x600")
            self.addTab()
+
+
            #self.root.mainloop()
 #mainGui=MainGUI() 
          

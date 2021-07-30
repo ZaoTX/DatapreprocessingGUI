@@ -340,19 +340,27 @@ def setupTab3(tab):
      checkbox7.place(relx = 0.6, rely = 0.3)
      
      # Label for information
-     tab4_TextLabel3 = ttk.Label(tab, text= "If the regular language of timestamp doesn't match, you can write your own:")
+     tab4_TextLabel3 = ttk.Label(tab, text= "This is the default regular language of timestamp. If it doesn't match,you can copy it blow and modify:")
      tab4_TextLabel3.place(relx = 0.1, rely = 0.4)
      
      # Label for information
      defaultReg=tk.StringVar()
      defaultReg.set('%Y-%m-%d %H:%M:%S.%f')
+     
+     #check box for split method
+     multibox1=ttk.Combobox(tab,values=["Spreating by time interval", "Spreating with continous segments"]
+                           ,width=40
+                           ,font=5
+                           )
+     multibox1.place(relx = 0.3, rely = 0.2)  
+      
      import launchGUI
      launchGUI.iB.timestampReg= '%Y-%m-%d %H:%M:%S.%f'
      entry1=tk.Entry(tab,
            width=108)
      entry1.config(textvariable = defaultReg,state='readonly',relief='flat')
      entry1.place(relx = 0.1, rely = 0.5)
-     tab4_TextLabel5 = ttk.Label(tab, text= "Here you can write your regular language for timestamp")
+     tab4_TextLabel5 = ttk.Label(tab, text= "Here you can write your regular language for timestamp:")
      tab4_TextLabel5.place(relx = 0.1, rely = 0.6)
      textVar=tk.StringVar()
      entry2=tk.Entry(tab,
@@ -378,19 +386,28 @@ def setupTab3(tab):
            #check spilt option
            if(v.get()=="1"):#split by timestamp
                  reg=''
+                 method = multibox1.get()
                  if(entry2.get()!=''):
                        reg=entry2.get()
-                       
+
                  else:
                        reg='%Y-%m-%d %H:%M:%S.%f'
                  print(reg)
                  #split by which time difference
-                 typ=v2.get()
+                 aim=v2.get()
+                 seconds = entry3.get()
                  import launchGUI
-                 from utils.spliting import splitingTime
-                 seconds=entry3.get()
-                 splitingTime(launchGUI.d, launchGUI.pSetups, reg, typ, seconds)
-                 launchGUI.iB.timestampReg=str(reg)
+                 launchGUI.iB.timestampReg = str(reg)
+                 if(method=="Spreating by time interval"):
+                    from utils.spliting import splitingTime
+
+                    splitingTime(launchGUI.d, launchGUI.pSetups, reg, aim, seconds)
+                 elif(method=="Spreating with continous segments"):
+                     from utils.spliting import  splitingTimeHighresolution
+                     splitingTimeHighresolution(launchGUI.d, launchGUI.pSetups, reg, aim, seconds)
+                 else:
+                     print("please select a method for splitting in checkbox")
+
                  
 #                 
            else:#split by inidividual
@@ -464,13 +481,25 @@ def setupTab4(tab):
            #print('function finished')
      tab3_TextLabel2 = ttk.Label(tab, text= "Detect outliers with DBSCAN")
      tab3_TextLabel2.place(relx = 0.1, rely = 0.45)
+
+     import webbrowser
+
+     def callbackDBSCAN(event):
+         webbrowser.open_new('https://en.wikipedia.org/wiki/DBSCAN')
+
+     # give information to the DBSCAN
+     tab5_TextLabelInfo = tk.Label(tab, text="More Info click here")
+     tab5_TextLabelInfo.place(relx=0.35, rely=0.45)
+     tab5_TextLabelInfo.bind('<Button-1>',callbackDBSCAN)
+     # moreInfoBtn = ttk.Button(tab, text="More Info", command=lambda: callback("https://en.wikipedia.org/wiki/DBSCAN"))
+     # moreInfoBtn.place(relx=0.35, rely=0.45)
      
      entry=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
      entry4=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
-     tab3_TextLabel4 = ttk.Label(tab, text= "eps=")
-     tab3_TextLabel4.place(relx = 0.2, rely = 0.55)
+     tab3_TextLabel4 = ttk.Label(tab, text= "spatial threshold=")
+     tab3_TextLabel4.place(relx = 0.12, rely = 0.55)
      tab3_TextLabel8 = ttk.Label(tab, text= "MinPts=")
      tab3_TextLabel8.place(relx = 0.43, rely = 0.55)
      entry.place(
@@ -481,6 +510,7 @@ def setupTab4(tab):
                  relx=0.51,rely=0.55,
                  height=25
                  )
+
      launchBtn= ttk.Button(tab, text="launch", command = lambda: launchDBSCAN())
      launchBtn.place(relx = 0.8, rely = 0.55)
      def launchDBSCAN():
@@ -496,10 +526,19 @@ def setupTab4(tab):
          print('Now you can refresh the 2D distirbution to see where the outliers are located')
      tab3_TextLabel5 = ttk.Label(tab, text= "Detect outliers with ST-DBSCAN")
      tab3_TextLabel5.place(relx = 0.1, rely = 0.65)
-     
+     #give information to the ST-DBSCAN
+     def callbackSTDBSCAN(event):
+         webbrowser.open_new("https://www.sciencedirect.com/science/article/pii/S0169023X06000218")
+     tab5_TextLabelInfo = tk.Label(tab, text="More Info click here")
+     tab5_TextLabelInfo.place(relx=0.35, rely=0.65)
+     tab5_TextLabelInfo.bind('<Button-1>', callbackSTDBSCAN)
+
+     # moreInfoBtn2 = ttk.Button(tab, text="More Info", command=lambda: callback("https://www.sciencedirect.com/science/article/pii/S0169023X06000218"))
+     # moreInfoBtn2.place(relx=0.35, rely=0.65)
+
      entry1=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
-     tab3_TextLabel6 = ttk.Label(tab, text= "sptial threshold =")
+     tab3_TextLabel6 = ttk.Label(tab, text= "spatial threshold =")
      tab3_TextLabel6.place(relx = 0.12, rely = 0.75)
      entry1.place(
                  relx=0.25,rely=0.75,
@@ -549,7 +588,13 @@ def setupTab5(tab):
                            ,font=12
                            )
      multibox.place(relx = 0.2, rely = 0.3)
-     
+     import webbrowser
+
+
+
+     tab5_TextLabelInfo = tk.Label(tab, text="More Info click here")
+     tab5_TextLabelInfo.place(relx=0.8, rely=0.3)
+
      tab5_TextLabel2 = ttk.Label(tab, text= "Here should be some comments about advantages and disadvantages for each method")
      tab5_TextLabel2.place(relx = 0.1, rely = 0.5)
      strFname=tk.StringVar()
@@ -558,6 +603,14 @@ def setupTab5(tab):
      tab5_TextLabel3 = ttk.Label(tab, text= "default")
      tab5_TextLabel4 = ttk.Label(tab, text= "default")
      def TextBoxUpdate(event):
+         def callbackDP(event):
+             webbrowser.open_new('https://de.wikipedia.org/wiki/Douglas-Peucker-Algorithmus')
+         def callbackTDSP(event):
+             webbrowser.open_new('https://webapps.itc.utwente.nl/librarywww/papers_2003/peer_ref_conf/meratnia_new.pdf')
+         def callbackTDTR(event):
+             webbrowser.open_new('http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1047.3757&rep=rep1&type=pdf')
+         def callbackSQUISH(event):
+             webbrowser.open_new('https://dl.acm.org/doi/pdf/10.1145/1999320.1999333?casa_token=eMj9Y_Tk6jMAAAAA:i0FJT9f18GQLlWgPn2DXlNcXRXLhPaK80K-4K46_WWQ4g_UACtQyC7JddSSnceV8TJBB1xh-o_3DsQ')
          choice = multibox.get()
          if(choice=='Average Sampling'):
              entry.place_forget()#hid
@@ -589,6 +642,8 @@ def setupTab5(tab):
              tab5_TextLabel4.config(text="Meter")
              tab5_TextLabel3.place(relx=0.3,rely=0.4)
              tab5_TextLabel4.place(relx=0.59,rely=0.4)
+
+             tab5_TextLabelInfo.bind('<Button-1>',callbackDP)
          elif(choice == 'TD_TR'):
              entry.place_forget()#hid
              tab5_TextLabel3.place_forget()#hid
@@ -604,6 +659,8 @@ def setupTab5(tab):
              tab5_TextLabel4.config(text="Meter")
              tab5_TextLabel3.place(relx=0.3,rely=0.4)
              tab5_TextLabel4.place(relx=0.59,rely=0.4)
+
+             tab5_TextLabelInfo.bind('<Button-1>', callbackTDTR)
          elif(choice == 'TD_SP'):
              entry.place_forget()#hid
              tab5_TextLabel3.place_forget()#hid
@@ -619,13 +676,14 @@ def setupTab5(tab):
              tab5_TextLabel4.config(text="Meter pro second")
              tab5_TextLabel3.place(relx=0.3,rely=0.4)
              tab5_TextLabel4.place(relx=0.59,rely=0.4)
+             tab5_TextLabelInfo.bind('<Button-1>', callbackTDSP)
          elif(choice == 'SQUISH'):
              entry.place_forget()#hid
              tab5_TextLabel3.place_forget()#hid
              tab5_TextLabel4.place_forget()#hid
              tab5_TextLabel2.config(text="SQUISH algorithm\n     it returns foreach individual an approximated trajectory with user defined size\n"+
                                     "+: It uses Synchronized Euclidean Distance as metric to ensure the trajectory as approximated as possible\n"+
-                                    "-: It doesn't take the time into consideration")
+                                    "-: The performance is unstable")
              entry.place(
                  relx=0.53,rely=0.4,
                  height=25
@@ -634,6 +692,7 @@ def setupTab5(tab):
              tab5_TextLabel4.config(text="")
              tab5_TextLabel3.place(relx=0.3,rely=0.4)
              tab5_TextLabel4.place(relx=0.59,rely=0.4)
+             tab5_TextLabelInfo.bind('<Button-1>', callbackSQUISH)
      multibox.bind("<<ComboboxSelected>>", TextBoxUpdate)
      launchBtn= ttk.Button(tab, text="launch", command = lambda: sampling())
      launchBtn.place(relx = 0.8, rely = 0.4)
