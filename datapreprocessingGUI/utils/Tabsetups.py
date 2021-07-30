@@ -13,6 +13,8 @@ import timeit
 
 
 
+
+
 #setup tab1:
 #   tab1 includes: select directory, select csv file' button , 
 #   their label to explain the function
@@ -416,6 +418,8 @@ def setupTab3(tab):
                  individualSpliting(launchGUI.d, launchGUI.pSetups)
                  #return
 def setupTab4(tab):
+
+
      # Label for information
      tab3_TextLabel1 = ttk.Label(tab, text= "How to deal with missing value")
      tab3_TextLabel1.place(relx = 0.1, rely = 0.2)
@@ -454,6 +458,7 @@ def setupTab4(tab):
 #                 
 #     multibox.bind("<<ComboboxSelected>>", TextBoxUpdate)
      def cleandataset():
+
            choice = multibox.get()
            print(choice)
            
@@ -500,6 +505,11 @@ def setupTab4(tab):
                  width=5)
      tab3_TextLabel4 = ttk.Label(tab, text= "spatial threshold=")
      tab3_TextLabel4.place(relx = 0.12, rely = 0.55)
+     from utils.MyToolTip import  CreateToolTip
+
+
+
+
      tab3_TextLabel8 = ttk.Label(tab, text= "MinPts=")
      tab3_TextLabel8.place(relx = 0.43, rely = 0.55)
      entry.place(
@@ -513,6 +523,7 @@ def setupTab4(tab):
 
      launchBtn= ttk.Button(tab, text="launch", command = lambda: launchDBSCAN())
      launchBtn.place(relx = 0.8, rely = 0.55)
+
      def launchDBSCAN():
          eps=float(entry.get())
          minPts=float(entry4.get())
@@ -972,3 +983,4 @@ def updateTab9(tab):
     canvas.draw()
     #setup position
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
