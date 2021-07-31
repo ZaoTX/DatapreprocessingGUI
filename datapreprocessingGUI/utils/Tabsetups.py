@@ -19,6 +19,8 @@ import timeit
 #   tab1 includes: select directory, select csv file' button , 
 #   their label to explain the function
 
+
+
 def setupTab1(tab):
      from utils.loadData import setupData,setupWorkdir
      ########### Select directory path ###################
@@ -419,6 +421,7 @@ def setupTab3(tab):
                  #return
 def setupTab4(tab):
 
+     #Tip.bind_widget(launchBtn, balloonmsg="www.tutorialspoint.com")
 
      # Label for information
      tab3_TextLabel1 = ttk.Label(tab, text= "How to deal with missing value")
@@ -504,8 +507,12 @@ def setupTab4(tab):
      entry4=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
      tab3_TextLabel4 = ttk.Label(tab, text= "spatial threshold=")
-     tab3_TextLabel4.place(relx = 0.12, rely = 0.55)
-     from utils.MyToolTip import  CreateToolTip
+     tab3_TextLabel4.place(relx = 0.11, rely = 0.55)
+     Tip = None
+
+
+     #
+
 
 
 
@@ -550,7 +557,7 @@ def setupTab4(tab):
      entry1=ttk.Entry(tab,textvariable = tk.StringVar(),
                  width=5)
      tab3_TextLabel6 = ttk.Label(tab, text= "spatial threshold =")
-     tab3_TextLabel6.place(relx = 0.12, rely = 0.75)
+     tab3_TextLabel6.place(relx = 0.11, rely = 0.75)
      entry1.place(
                  relx=0.25,rely=0.75,
                  height=25
@@ -589,6 +596,23 @@ def setupTab4(tab):
          print('The index of the outliers are:')
          print(outliersIndex)
          print('Now you can refresh the 2D distirbution to see where the outliers are located')
+     def setupTiptool():
+         from tkinter import tix
+         import launchGUI
+
+         Tip = tix.Balloon(launchGUI.main.root)
+         Tip.bind_widget(tab3_TextLabel4,
+                         balloonmsg="An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
+         Tip.bind_widget(tab3_TextLabel6,
+                         balloonmsg="An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
+
+         Tip.bind_widget(tab3_TextLabel7,
+                         balloonmsg="An upper temporal threshold, the algorithm check the number of neighbors within this threshold")
+         Tip.bind_widget(tab3_TextLabel8,
+                         balloonmsg="The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
+         Tip.bind_widget(tab3_TextLabel9,
+                         balloonmsg="The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
+     setupTiptool()
 def setupTab5(tab):
      tab5_TextLabel1 = ttk.Label(tab, text= "Which method do you want to sample the dataset")
      tab5_TextLabel1.place(relx = 0.1, rely = 0.2)
