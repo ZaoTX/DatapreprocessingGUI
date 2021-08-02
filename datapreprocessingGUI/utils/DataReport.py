@@ -194,7 +194,17 @@ def PostAnalysis(idName,d,iB):
     wholeNumber=len(timeList)
     # record compression ratio
     iB.compressionratio=(1-len(post_timeList)/wholeNumber)*100
-    
+    #calculation of large division
+    def largeDivision(a,b):
+        from math import exp, log
+        import decimal
+        try:
+            out=decimal.Decimal(exp(log(abs(a)) - log(abs(b))))
+        except:
+            import sys
+            out = decimal.Decimal(1/sys.maxsize)
+            print("The difference between the start time to the end time could be too large please check the sampled file, SED value is calculate with the 1/maximum integer")
+        return out
     #####################calculate the SED of (lat,lng,height)####################################
     def calculateSED(lat,lng,height,time,LatList,LngList,HeightList,timeList):
             import math
@@ -210,16 +220,16 @@ def PostAnalysis(idName,d,iB):
             last_height = float(HeightList[-1])
             last_timestamp = timeList[-1]
             #print(last_timestamp)
-            lastTimeObj=datetime.strptime(last_timestamp,'%Y-%m-%d %H:%M:%S.%f')
-            firstTimeObj=datetime.strptime(first_timestamp,'%Y-%m-%d %H:%M:%S.%f')
+            lastTimeObj=datetime.strptime(last_timestamp,iB.timestampReg)
+            firstTimeObj=datetime.strptime(first_timestamp,iB.timestampReg)
             timeDiff=decimal.Decimal(abs((firstTimeObj-lastTimeObj).total_seconds()))
             #print(timeDiff)
-            cur_timeObj=datetime.strptime(time,'%Y-%m-%d %H:%M:%S.%f')
+            cur_timeObj=datetime.strptime(time,iB.timestampReg)
             curtimeDiff=decimal.Decimal(abs((firstTimeObj-cur_timeObj).total_seconds()))
             # interpolate lat,lng,height
-            lati=first_lat+ (last_lat-first_lat)*float(curtimeDiff*(1/timeDiff))
-            lngi=first_lng+ (last_lng-first_lng)*float(curtimeDiff*(1/timeDiff))
-            hi=first_height+ (last_height-first_height)*float(curtimeDiff*(1/timeDiff))
+            lati=first_lat+ (last_lat-first_lat)*float(curtimeDiff*(largeDivision(1,timeDiff)))
+            lngi=first_lng+ (last_lng-first_lng)*float(curtimeDiff*(largeDivision(1,timeDiff)))
+            hi=first_height+ (last_height-first_height)*float(curtimeDiff*(largeDivision(1,timeDiff)))
             #calculate sed value
             value = math.sqrt((lat-lati)**2+(lng-lngi)**2+(height-hi)**2)
             return value
@@ -258,7 +268,7 @@ def PostAnalysis(idName,d,iB):
                 j=j+1
                 if(j>=len(post_latList)):
                     break
-            elif(len(cur_Lats)==0 and len(post_lats)>=1):
+            elif(len(cur_Lats)==0 and len(post_lats)==1):
                 post_lats=[]
                 post_lngs=[]
                 post_hs=[]
@@ -275,7 +285,7 @@ def PostAnalysis(idName,d,iB):
                 if(j>=len(post_latList)):
                     break
             else:
-                print(len(cur_Lats))
+                #print(len(cur_Lats))
                 latj = float(post_latList[j])
                 post_lats.append(latj)
                 lngj = float(post_lngList[j])
@@ -286,9 +296,9 @@ def PostAnalysis(idName,d,iB):
                 post_ts.append(timej)
                 #calculate SED and initialize the lists
                 if(len(post_lats)<=1):
-                    print("有问题<=1")
+                    print("The number of points in the list<=1, should be 2(Data Report line 289)")
                 elif(len(post_lats)>2):
-                    print(">2不对")
+                    print("The number of points in the list>2, should be 2(Data Report line 291)")
                 for k in range(0,len(cur_Lats)):
                     latk = float(cur_Lats[k])
                     lngk = float(cur_Lngs[k])
@@ -300,17 +310,17 @@ def PostAnalysis(idName,d,iB):
                 cur_Lngs=[]
                 cur_hs=[]
                 cur_ts=[]
-                post_lats=[]
-                post_lngs=[]
-                post_hs=[]
-                post_ts=[]
+                post_lats=[post_lats[-1]]
+                post_lngs=[post_lngs[-1]]
+                post_hs=[post_hs[-1]]
+                post_ts=[post_ts[-1]]
                 j=j+1
                 if(j>=len(post_latList)):
                     break
-        
-        
+
         return SEDs
     SEDvaules=averageSEDError(latList,lngList,heightList,timeList,post_latList,post_lngList,post_heightList,post_timeList)
+    print('There are '+str(len(SEDvaules))+ 'sampled out')
     SED_error_avg=sum(SEDvaules)/len(SEDvaules)
     iB.averageSED= SED_error_avg
     ###########compare the orignial and sampled trjectory############

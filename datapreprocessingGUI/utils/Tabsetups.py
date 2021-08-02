@@ -352,7 +352,7 @@ def setupTab3(tab):
      defaultReg.set('%Y-%m-%d %H:%M:%S.%f')
      
      #check box for split method
-     multibox1=ttk.Combobox(tab,values=["Spreating by time interval", "Spreating with continous segments"]
+     multibox1=ttk.Combobox(tab,values=["Separating by time interval", "Separating with continous segments"]
                            ,width=40
                            ,font=5
                            )
@@ -402,11 +402,11 @@ def setupTab3(tab):
                  seconds = entry3.get()
                  import launchGUI
                  launchGUI.iB.timestampReg = str(reg)
-                 if(method=="Spreating by time interval"):
+                 if(method=="Separating by time interval"):
                     from utils.spliting import splitingTime
 
                     splitingTime(launchGUI.d, launchGUI.pSetups, reg, aim, seconds)
-                 elif(method=="Spreating with continous segments"):
+                 elif(method=="Separating with continous segments"):
                      from utils.spliting import  splitingTimeHighresolution
                      splitingTimeHighresolution(launchGUI.d, launchGUI.pSetups, reg, aim, seconds)
                  else:

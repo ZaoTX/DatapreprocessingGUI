@@ -9,13 +9,18 @@ from GUIFramework import MainGUI
 from utils.dataset import dataInfo
 from utils.processingSetups  import processingSetups
 from utils.infoBuffer import infoBuffer
-import tkinter as tk
-from tkinter import ttk
 
+
+import os
+import sys
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
 
 
 iB=infoBuffer()
 pSetups=processingSetups()
 d=dataInfo('','',[],[])
 main=MainGUI()
+main.addTab()
 main.root.mainloop()

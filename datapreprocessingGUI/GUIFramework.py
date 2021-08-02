@@ -7,11 +7,12 @@ Created on Thu Sep 24 14:37:00 2020
 
 import tkinter as tk
 from tkinter import ttk
-
+from tkinter import tix
 
 class MainGUI:
-     root = tk.Tk()
+     root = tix.Tk()
      tabNotebook = ttk.Notebook(root)
+
      # Add different tabs
      tab1 = ttk.Frame(tabNotebook)
      tab2 = ttk.Frame(tabNotebook)
@@ -22,7 +23,7 @@ class MainGUI:
      tab7 = ttk.Frame(tabNotebook)
      tab8 = ttk.Frame(tabNotebook)
      tab9 = ttk.Frame(tabNotebook)
-     
+
      def addTab(self):
            try:
 
@@ -77,9 +78,11 @@ class MainGUI:
          
 
      def __init__(self):
-           self.root.title("Movement Data Preprocessing")
-           self.root.geometry("800x600")
-           self.addTab()
+         self.root.geometry("800x600")
+         self.root.title("Movement Data Preprocessing")
+
+
+
 
 
            #self.root.mainloop()
