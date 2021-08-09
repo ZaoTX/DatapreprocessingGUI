@@ -12,9 +12,9 @@ import pandas as pd
 def interpolation(d,p,meth):
       base_dir = d.workdir
       #specify the critical headers
-#      latHeader=p.latHeaderName
-#      lngHeader=p.lngHeaderName
-#      heightHeader=p.heightHeaderName
+      latHeader=p.latHeaderName
+      lngHeader=p.lngHeaderName
+      heightHeader=p.heightHeaderName
       filePath = d.filepath
       outpath = base_dir+'/'+'clean'
       if not os.path.exists(outpath):
@@ -31,7 +31,10 @@ def interpolation(d,p,meth):
           for ID in IDs:
               dfi=df[df[idHeader]==ID]
               dfi=dfi.interpolate(method =meth, limit_direction ='forward',limit_area='inside')
-              dfi=dfi.dropna()
+              if heightHeader == '------':
+                  dfi = dfi.dropna(subset=[latHeader, lngHeader])
+              else:
+                  dfi = dfi.dropna(subset=[latHeader, lngHeader, heightHeader])
               dfList.append(dfi)
           result_df = pd.concat(dfList)   
           result_df.to_csv(outpath+'/'+meth+'_interporlation.csv',index=False)
@@ -40,16 +43,24 @@ def interpolation(d,p,meth):
 def removeMissing(d,p):
       base_dir = d.workdir
       #specify the critical headers
-#      latHeader=p.latHeaderName
-#      lngHeader=p.lngHeaderName
-#      heightHeader=p.heightHeaderName
+      latHeader=p.latHeaderName
+      lngHeader=p.lngHeaderName
+      heightHeader=p.heightHeaderName
+
+
       filePath = d.filepath
       outpath = base_dir+'/'+'clean'
       if not os.path.exists(outpath):
                os.makedirs(outpath)
       #csv_file=open(filePath, encoding='utf-8')
       df = pd.read_csv(filePath)#get dataframe
-      df=df.dropna()
+      # indLat = df.columns.get_loc(latHeader)
+      # indLng = df.columns.get_loc(lngHeader)
+      # indHeight =df.columns.get_loc(heightHeader)
+      if heightHeader=='------':
+          df = df.dropna(subset=[latHeader, lngHeader])
+      else:
+          df=df.dropna(subset=[latHeader,lngHeader,heightHeader])
       df.to_csv(outpath+'/'+'removeMissing.csv',index=False)
 # compute DBSCAN algorithm for each individual to detect the outlier      
 # return a list of the outlier index        

@@ -184,7 +184,12 @@ def plotDensity(main,iB,d):
     else:
         o_latList=[]
         o_lngList=[]
+        import numpy as np
+
+
+
         for i in range(0,num):
+
             #add id name:
             idName=IDList[i]
             #find a color to represent
@@ -203,6 +208,7 @@ def plotDensity(main,iB,d):
                 if(curLat!=''and curLng!=''):
                     outLatList.append(float(curLat))
                     outLngList.append(float(curLng))
+            colors = np.random.rand(len(outLngList))
             #plot the points
             main.scatter(outLngList,outLatList,
                    marker='s', label=idName, s=[5]*len(outLngList))
@@ -215,8 +221,8 @@ def plotDensity(main,iB,d):
                 print(o_lng)
                 o_latList.append(float(o_lat))
                 o_lngList.append(float(o_lng))
-            
-        main.scatter(o_lngList,o_latList,marker='o',label='Outliers')
+        color4outlier = np.random.rand(len(o_lngList))
+        main.scatter(o_lngList,o_latList,marker='s',label='Outliers',s=[5]*len(o_latList),c=["gold"]*len(o_lngList))
                 
         
     main.legend(loc='best')
