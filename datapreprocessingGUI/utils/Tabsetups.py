@@ -46,9 +46,7 @@ def setupTab1(tab):
            filePath = fd.askdirectory()  
            if(filePath != ''):
                 strPath.set(filePath)
-                
-                
-                
+
                 setupWorkdir(filePath, launchGUI.d)
          except:pass
      ########### Select csv ###################
@@ -90,6 +88,7 @@ def setupTab1(tab):
                 except: 
                     print('there is something wrong in gui genderation(Tab1)')
                 updateTab2(launchGUI.main.tab2, launchGUI.d)
+                launchGUI.pSetups.choosenHeaders=[]
 
       ############ define the headers for important information #############
      def getHeader1(event):#id
@@ -597,21 +596,21 @@ def setupTab4(tab):
          print(outliersIndex)
          print('Now you can refresh the 2D distirbution to see where the outliers are located')
      def setupTiptool():
-         from tkinter import tix
+         from utils.Tooltip4GUI import CreateToolTip
          import launchGUI
 
-         Tip = tix.Balloon(launchGUI.main.root)
-         Tip.bind_widget(tab3_TextLabel4,
-                         balloonmsg="An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
-         Tip.bind_widget(tab3_TextLabel6,
-                         balloonmsg="An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
 
-         Tip.bind_widget(tab3_TextLabel7,
-                         balloonmsg="An upper temporal threshold, the algorithm check the number of neighbors within this threshold")
-         Tip.bind_widget(tab3_TextLabel8,
-                         balloonmsg="The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
-         Tip.bind_widget(tab3_TextLabel9,
-                         balloonmsg="The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
+         CreateToolTip(tab3_TextLabel4,
+                         "An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
+         CreateToolTip(tab3_TextLabel6,
+                         "An upper spatial threshold, the algorithm check the number of neighbors within this threshold")
+
+         CreateToolTip(tab3_TextLabel7,
+                         "An upper temporal threshold, the algorithm check the number of neighbors within this threshold")
+         CreateToolTip(tab3_TextLabel8,
+                         "The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
+         CreateToolTip(tab3_TextLabel9,
+                         "The minimum number of neighbors(including the point itself) to regard as non-outlier data point")
      setupTiptool()
 def setupTab5(tab):
      tab5_TextLabel1 = ttk.Label(tab, text= "Which method do you want to sample the dataset")

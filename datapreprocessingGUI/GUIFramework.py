@@ -7,10 +7,9 @@ Created on Thu Sep 24 14:37:00 2020
 
 import tkinter as tk
 from tkinter import ttk
-from tkinter import tix
 
 class MainGUI:
-     root = tix.Tk()
+     root = tk.Tk()
      tabNotebook = ttk.Notebook(root)
 
      # Add different tabs
