@@ -77,7 +77,7 @@ class MainGUI:
          
 
      def __init__(self):
-         self.root.geometry("800x600")
+         self.root.geometry("880x660")
          self.root.title("Movement Data Preprocessing")
 
 

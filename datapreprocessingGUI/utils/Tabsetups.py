@@ -34,7 +34,7 @@ def setupTab1(tab):
      # Show the directory path
      strPath = tk.StringVar()
      ttk.Entry(tab,textvariable = strPath,
-           width=65).place(
+           width=55).place(
            relx=0.1,rely=0.1,
            height=30
            )
@@ -58,7 +58,7 @@ def setupTab1(tab):
      #select a file
      strFname = tk.StringVar()
      ttk.Entry(tab,textvariable = strFname,
-                 width=65).place(
+                 width=55).place(
                  relx=0.1,rely=0.25,
                  height=30
                  )
@@ -360,14 +360,14 @@ def setupTab3(tab):
      import launchGUI
      launchGUI.iB.timestampReg= '%Y-%m-%d %H:%M:%S.%f'
      entry1=tk.Entry(tab,
-           width=108)
+           width=80)
      entry1.config(textvariable = defaultReg,state='readonly',relief='flat')
      entry1.place(relx = 0.1, rely = 0.5)
      tab4_TextLabel5 = ttk.Label(tab, text= "Here you can write your regular language for timestamp:")
      tab4_TextLabel5.place(relx = 0.1, rely = 0.6)
      textVar=tk.StringVar()
      entry2=tk.Entry(tab,
-           width=108,
+           width=80,
            textvariable = textVar,
            relief='flat')
      entry2.place(relx = 0.1, rely = 0.7)
