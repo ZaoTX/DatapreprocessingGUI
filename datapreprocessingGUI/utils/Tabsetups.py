@@ -378,7 +378,7 @@ def setupTab3(tab):
            relief='flat')
      entry3.place(relx = 0.7, rely = 0.3)
      tab4_TextLabel6 = ttk.Label(tab, text= "seconds")
-     tab4_TextLabel6.place(relx = 0.77, rely = 0.3)
+     tab4_TextLabel6.place(relx = 0.75, rely = 0.3)
      #defaultReg.set("((?P<DD>\d{1,2})/(?P<MM>\d{1,2})/(?P<YY>\d{4}) (?P<h>\d{1,2}):(?P<min>\d{2}):(?P<sec>\d{2}) (?P<TT>[AM|PM]{2}))")
      #confirm button
      btn1 = ttk.Button(tab, text ='Confirm', command = lambda:confirm()) 
