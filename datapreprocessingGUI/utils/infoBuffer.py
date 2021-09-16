@@ -64,3 +64,4 @@ class infoBuffer:
             self.startPos=''
             self.endPos=''
             self.numOfDatapoints=0
+            self.outlierLists=[]

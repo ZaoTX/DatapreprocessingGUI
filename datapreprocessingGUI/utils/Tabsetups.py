@@ -72,7 +72,9 @@ def setupTab1(tab):
                 
                 
                 try:
-                      #setup csv.DictReader, filepath, workdir 
+                      launchGUI.iB.outlierLists=[]
+                      #setup csv.DictReader, filepath, workdir
+
                       setupData(filename, launchGUI.d)
                       choices1=launchGUI.d.headers
                       multibox1.config(values=choices1)
@@ -367,7 +369,7 @@ def setupTab3(tab):
      tab4_TextLabel5.place(relx = 0.1, rely = 0.6)
      textVar=tk.StringVar()
      entry2=tk.Entry(tab,
-           width=108,
+           width=78,
            textvariable = textVar,
            relief='flat')
      entry2.place(relx = 0.1, rely = 0.7)
@@ -383,7 +385,16 @@ def setupTab3(tab):
      #confirm button
      btn1 = ttk.Button(tab, text ='Confirm', command = lambda:confirm()) 
      btn1.place(relx = 0.8, rely = 0.9)
-     
+     btn2 = ttk.Button(tab, text = 'Update Reg',command = lambda: updateReg())
+     btn2.place(relx=0.8, rely = 0.7)
+     def updateReg():
+         reg = ''
+         if (entry2.get() != ''):
+             reg = entry2.get()
+
+         else:
+             reg = '%Y-%m-%d %H:%M:%S.%f'
+         launchGUI.iB.timestampReg = str(reg)
      
      def confirm():
            #check spilt option
@@ -952,6 +963,7 @@ def updateTab8(tab):
     for child in tab.winfo_children():
        child.destroy()
     #import numpy as np
+
     from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
     #from matplotlib.backend_bases import key_press_handler
